@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="OrionTekTestModelStoreContainer" CdmEntityContainer="OrionTekTestEntities">
+    <EntitySetMapping Name="Addresses">
+      <EntityTypeMapping TypeName="OrionTekTestModel.Address">
+        <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+          <ScalarProperty Name="Line1" ColumnName="Line1" />
+          <ScalarProperty Name="Line2" ColumnName="Line2" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Province" ColumnName="Province" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Address_Type">
+      <EntityTypeMapping TypeName="OrionTekTestModel.Address_Type">
+        <MappingFragment StoreEntitySet="Address_Type">
+          <ScalarProperty Name="Address_Type_Id" ColumnName="Address_Type_Id" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="OrionTekTestModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="BrithDate" ColumnName="BrithDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customer_Address">
+      <EntityTypeMapping TypeName="OrionTekTestModel.Customer_Address">
+        <MappingFragment StoreEntitySet="Customer_Address">
+          <ScalarProperty Name="Customer_Address_Id" ColumnName="Customer_Address_Id" />
+          <ScalarProperty Name="Address_Id" ColumnName="Address_Id" />
+          <ScalarProperty Name="Address_Type_Id" ColumnName="Address_Type_Id" />
+          <ScalarProperty Name="Customer_Id" ColumnName="Customer_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
