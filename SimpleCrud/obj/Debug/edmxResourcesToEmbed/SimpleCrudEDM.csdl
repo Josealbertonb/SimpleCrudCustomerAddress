@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SimpleCrudTestModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Address">
+    <Key>
+      <PropertyRef Name="Address_Id" />
+    </Key>
+    <Property Name="Address_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Line1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Line2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ZipCode" Type="Int32" />
+    <NavigationProperty Name="Customer_Address" Relationship="Self.FK_Customer_Address_Address" FromRole="Address" ToRole="Customer_Address" />
+  </EntityType>
+  <EntityType Name="Address_Type">
+    <Key>
+      <PropertyRef Name="Address_Type_Id" />
+    </Key>
+    <Property Name="Address_Type_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Customer_Address" Relationship="Self.FK_Customer_Address_Address_Type" FromRole="Address_Type" ToRole="Customer_Address" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="Customer_Id" />
+    </Key>
+    <Property Name="Customer_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BrithDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Customer_Address" Relationship="Self.FK_Customer_Address_Customer" FromRole="Customer" ToRole="Customer_Address" />
+  </EntityType>
+  <EntityType Name="Customer_Address">
+    <Key>
+      <PropertyRef Name="Customer_Address_Id" />
+    </Key>
+    <Property Name="Customer_Address_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address_Id" Type="Int32" Nullable="false" />
+    <Property Name="Address_Type_Id" Type="Int32" Nullable="false" />
+    <Property Name="Customer_Id" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Address" Relationship="Self.FK_Customer_Address_Address" FromRole="Customer_Address" ToRole="Address" />
+    <NavigationProperty Name="Address_Type" Relationship="Self.FK_Customer_Address_Address_Type" FromRole="Customer_Address" ToRole="Address_Type" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Address_Customer" FromRole="Customer_Address" ToRole="Customer" />
+  </EntityType>
+  <Association Name="FK_Customer_Address_Address">
+    <End Role="Address" Type="Self.Address" Multiplicity="1" />
+    <End Role="Customer_Address" Type="Self.Customer_Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address">
+        <PropertyRef Name="Address_Id" />
+      </Principal>
+      <Dependent Role="Customer_Address">
+        <PropertyRef Name="Address_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Address_Address_Type">
+    <End Role="Address_Type" Type="Self.Address_Type" Multiplicity="1" />
+    <End Role="Customer_Address" Type="Self.Customer_Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Address_Type">
+        <PropertyRef Name="Address_Type_Id" />
+      </Principal>
+      <Dependent Role="Customer_Address">
+        <PropertyRef Name="Address_Type_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Customer_Address_Customer">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+    <End Role="Customer_Address" Type="Self.Customer_Address" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="Customer_Id" />
+      </Principal>
+      <Dependent Role="Customer_Address">
+        <PropertyRef Name="Customer_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SimpleCrudTestEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Addresses" EntityType="Self.Address" />
+    <EntitySet Name="Address_Type" EntityType="Self.Address_Type" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="Customer_Address" EntityType="Self.Customer_Address" />
+    <AssociationSet Name="FK_Customer_Address_Address" Association="Self.FK_Customer_Address_Address">
+      <End Role="Address" EntitySet="Addresses" />
+      <End Role="Customer_Address" EntitySet="Customer_Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Address_Address_Type" Association="Self.FK_Customer_Address_Address_Type">
+      <End Role="Address_Type" EntitySet="Address_Type" />
+      <End Role="Customer_Address" EntitySet="Customer_Address" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customer_Address_Customer" Association="Self.FK_Customer_Address_Customer">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="Customer_Address" EntitySet="Customer_Address" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
